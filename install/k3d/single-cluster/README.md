@@ -162,6 +162,31 @@ kubectl apply -f samples/getting-started/all.yaml
 kubectl label namespace default openchoreo.dev/control-plane=true --overwrite
 ```
 
+## GitOps with Argo CD
+
+Install Argo CD in the local cluster, then apply the LAN route and sample
+Application manifest:
+
+```bash
+helm repo add argo https://argoproj.github.io/argo-helm
+helm repo update
+helm upgrade --install argocd argo/argo-cd \
+  --namespace argocd --create-namespace \
+  --set 'server.extraArgs[0]=--insecure' \
+  --set server.service.type=ClusterIP
+
+kubectl apply -f install/k3d/single-cluster/argocd-lan.yaml
+```
+
+On the LAN, Argo CD is available at
+`http://argocd.<HOST_LAN_IP>.nip.io:18080`. Retrieve the initial admin password
+with:
+
+```bash
+kubectl -n argocd get secret argocd-initial-admin-secret \
+  -o jsonpath='{.data.password}' | base64 -d; echo
+```
+
 ## 5. Setup Data Plane
 
 ### Namespace and Certificates
