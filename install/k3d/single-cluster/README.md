@@ -499,9 +499,16 @@ helm upgrade openchoreo-observability-plane install/helm/openchoreo-observabilit
   -f install/k3d/single-cluster/values-lan-observability.yaml
 ```
 
+For LAN HTTPS access, apply the self-signed certificates before these upgrades:
+
+```bash
+kubectl apply -f install/k3d/single-cluster/lan-gateway-certificate.yaml
+kubectl apply -f install/k3d/single-cluster/lan-observability-certificate.yaml
+```
+
 The Docker-published ports must be reachable through the host firewall. The
-portal is then available at `http://openchoreo.192.168.1.3.nip.io:18080`, the
-API at `http://api.192.168.1.3.nip.io:18080`, and the sample workload through
+portal is then available at `https://openchoreo.192.168.1.3.nip.io:18443`, the
+API at `https://api.192.168.1.3.nip.io:18443`, and the sample workload through
 the corresponding `*.openchoreoapis.192.168.1.3.nip.io:19080` hostname.
 Replace `192.168.1.3` if the host receives a different DHCP address.
 
@@ -529,13 +536,13 @@ All ports are mapped 1:1 (host:container) unless noted.
 
 | Service              | URL                                           |
 |----------------------|-----------------------------------------------|
-| OpenChoreo Console   | http://openchoreo.192.168.1.3.nip.io:18080    |
-| OpenChoreo API       | http://api.192.168.1.3.nip.io:18080           |
-| Thunder Admin        | http://thunder.192.168.1.3.nip.io:18080       |
+| OpenChoreo Console   | https://openchoreo.192.168.1.3.nip.io:18443    |
+| OpenChoreo API       | https://api.192.168.1.3.nip.io:18443           |
+| Thunder Admin        | https://thunder.192.168.1.3.nip.io:18443       |
 | Argo Workflows UI    | http://192.168.1.3:10081                       |
 | Registry             | http://192.168.1.3:10082                       |
-| Observer API         | http://observer.192.168.1.3.nip.io:11080      |
-| Argo CD              | http://argocd.192.168.1.3.nip.io:18080        |
+| Observer API         | https://observer.192.168.1.3.nip.io:11085     |
+| Argo CD              | https://argocd.192.168.1.3.nip.io:18443       |
 
 ## Verification
 
