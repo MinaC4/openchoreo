@@ -9,7 +9,7 @@ httproute:
     - name: gateway-default
       namespace: openchoreo-control-plane
   hostnames:
-    - thunder.openchoreo.localhost
+    - thunder.192.168.1.3.nip.io
 
 # Not using nginx ingress in openchoreo
 ingress:
@@ -25,11 +25,11 @@ hpa:
 configuration:
   server:
     httpOnly: true
-    publicUrl: "http://thunder.openchoreo.localhost:8080"
+    publicUrl: "http://thunder.192.168.1.3.nip.io:18080"
 
   gateClient:
-    hostname: "thunder.openchoreo.localhost"
-    port: 8080
+    hostname: "thunder.192.168.1.3.nip.io"
+    port: 18080
     scheme: "http"
 
   database:
@@ -44,7 +44,7 @@ configuration:
 
   passkey:
     allowedOrigins:
-      - "http://openchoreo.localhost:8080"
+      - "http://openchoreo.192.168.1.3.nip.io:18080"
 
 setup:
   enabled: true
@@ -109,7 +109,7 @@ bootstrap:
       name: cors
       value:
         allowedOrigins:
-          - "http://openchoreo.localhost:8080"
+          - "http://openchoreo.192.168.1.3.nip.io:18080"
           - "http://localhost:7007"
 
     50-user-schema-and-users.yaml: |
@@ -249,7 +249,7 @@ bootstrap:
             clientId: openchoreo-backstage-client
             clientSecret: backstage-portal-secret
             redirectUris:
-              - "http://openchoreo.localhost:8080/api/auth/openchoreo-auth/handler/frame"
+              - "http://openchoreo.192.168.1.3.nip.io:18080/api/auth/openchoreo-auth/handler/frame"
             grantTypes:
               - authorization_code
               - client_credentials
@@ -608,7 +608,7 @@ bootstrap:
       id: 01900000-0000-7000-8001-000000000070
       name: OpenChoreo Control Plane
       description: OpenChoreo control plane MCP server
-      identifier: "http://api.openchoreo.localhost:8080/mcp"
+      identifier: "http://api.192.168.1.3.nip.io:18080/mcp"
       type: MCP
       ouHandle: default
       ---
@@ -616,6 +616,6 @@ bootstrap:
       id: 01900000-0000-7000-8001-000000000071
       name: OpenChoreo Observability Plane
       description: OpenChoreo observability plane MCP server
-      identifier: "http://observer.openchoreo.localhost:11080/mcp"
+      identifier: "http://observer.192.168.1.3.nip.io:11080/mcp"
       type: MCP
       ouHandle: default

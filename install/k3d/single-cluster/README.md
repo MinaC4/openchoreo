@@ -187,6 +187,18 @@ kubectl -n argocd get secret argocd-initial-admin-secret \
   -o jsonpath='{.data.password}' | base64 -d; echo
 ```
 
+For a complete local installation, use the repository installer with both
+optional OpenChoreo planes enabled:
+
+```bash
+install/k3d/k3d-install.sh --with-build --with-observability
+```
+
+The observability modules installed by that command are OpenChoreo's official
+logs/OpenSearch, traces/OpenSearch, metrics/Prometheus, and Kubernetes-events
+modules. They are part of the OpenChoreo installation flow and are linked to
+the registered data and workflow planes.
+
 ## 5. Setup Data Plane
 
 ### Namespace and Certificates
@@ -517,11 +529,13 @@ All ports are mapped 1:1 (host:container) unless noted.
 
 | Service              | URL                                           |
 |----------------------|-----------------------------------------------|
-| OpenChoreo Console   | http://openchoreo.localhost:8080               |
-| OpenChoreo API       | http://api.openchoreo.localhost:8080           |
-| Thunder Admin        | http://thunder.openchoreo.localhost:8080       |
-| Argo Workflows UI    | http://localhost:10081                         |
-| Observer API         | http://observer.openchoreo.localhost:11080     |
+| OpenChoreo Console   | http://openchoreo.192.168.1.3.nip.io:18080    |
+| OpenChoreo API       | http://api.192.168.1.3.nip.io:18080           |
+| Thunder Admin        | http://thunder.192.168.1.3.nip.io:18080       |
+| Argo Workflows UI    | http://192.168.1.3:10081                       |
+| Registry             | http://192.168.1.3:10082                       |
+| Observer API         | http://observer.192.168.1.3.nip.io:11080      |
+| Argo CD              | http://argocd.192.168.1.3.nip.io:18080        |
 
 ## Verification
 
