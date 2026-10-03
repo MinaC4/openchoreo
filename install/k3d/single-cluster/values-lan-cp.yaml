@@ -1,0 +1,42 @@
+# LAN overlay for the current development host.
+# Replace 192.168.1.3 with the host's stable LAN IP when deploying elsewhere.
+openchoreoApi:
+  http:
+    hostnames:
+      - api.192.168.1.3.nip.io
+  config:
+    server:
+      publicUrl: "http://api.192.168.1.3.nip.io:18080"
+    remoteConnect:
+      enabled: true
+      entrypointAddress: "192.168.1.3:30443"
+      agentImage:
+        tag: latest-dev
+
+backstage:
+  secretName: backstage-secrets
+  baseUrl: "http://openchoreo.192.168.1.3.nip.io:18080"
+  http:
+    hostnames:
+      - openchoreo.192.168.1.3.nip.io
+
+portalAssistant:
+  config:
+    observerApiUrl: "http://observer.192.168.1.3.nip.io:11080"
+
+security:
+  oidc:
+    issuer: "http://thunder.192.168.1.3.nip.io:18080"
+    jwksUrl: "http://thunder.192.168.1.3.nip.io:18080/oauth2/jwks"
+    authorizationUrl: "http://thunder.192.168.1.3.nip.io:18080/oauth2/authorize"
+    tokenUrl: "http://thunder.192.168.1.3.nip.io:18080/oauth2/token"
+
+gateway:
+  httpPort: 8080
+  httpsPort: 8443
+  tls:
+    enabled: false
+
+features:
+  secretManagement:
+    enabled: true

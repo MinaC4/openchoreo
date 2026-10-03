@@ -444,6 +444,30 @@ kubectl patch clusterworkflowplane default -n default --type merge \
   -p '{"spec":{"observabilityPlaneRef":{"kind":"ClusterObservabilityPlane","name":"default"}}}'
 ```
 
+## LAN Access
+
+The LAN overlay uses `nip.io` names that resolve to the host's LAN address. For
+the current host (`192.168.1.3`), apply the control-plane and observability
+overlays with the existing local values files:
+
+```bash
+helm upgrade openchoreo-control-plane install/helm/openchoreo-control-plane \
+  -n openchoreo-control-plane \
+  -f install/k3d/single-cluster/values-cp.yaml \
+  -f install/k3d/single-cluster/values-lan-cp.yaml
+
+helm upgrade openchoreo-observability-plane install/helm/openchoreo-observability-plane \
+  -n openchoreo-observability-plane \
+  -f install/k3d/single-cluster/values-op.yaml \
+  -f install/k3d/single-cluster/values-lan-observability.yaml
+```
+
+The Docker-published ports must be reachable through the host firewall. The
+portal is then available at `http://openchoreo.192.168.1.3.nip.io:18080`, the
+API at `http://api.192.168.1.3.nip.io:18080`, and the sample workload through
+the corresponding `*.openchoreoapis.192.168.1.3.nip.io:19080` hostname.
+Replace `192.168.1.3` if the host receives a different DHCP address.
+
 ## Port Mappings
 
 All ports are mapped 1:1 (host:container) unless noted.

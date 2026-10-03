@@ -1,0 +1,46 @@
+# LAN overlay for the current development host.
+# Replace 192.168.1.3 with the host's stable LAN IP when deploying elsewhere.
+finOpsAgent:
+  openchoreoApiUrl: "http://api.192.168.1.3.nip.io:18080"
+  cors:
+    allowedOrigins:
+      - "http://openchoreo.192.168.1.3.nip.io:18080"
+  http:
+    hostnames:
+      - finops-agent.192.168.1.3.nip.io
+
+observer:
+  secretName: observer-secret
+  controlPlaneApiUrl: "http://api.192.168.1.3.nip.io:18080"
+  cors:
+    allowedOrigins:
+      - "http://openchoreo.192.168.1.3.nip.io:18080"
+  extraEnvs:
+    - name: OBSERVER_BASE_URL
+      value: "http://observer.192.168.1.3.nip.io:11080"
+    - name: AUTHZ_TIMEOUT
+      value: "30s"
+  http:
+    hostnames:
+      - observer.192.168.1.3.nip.io
+
+security:
+  oidc:
+    jwksUrl: "http://thunder-service.thunder.svc.cluster.local:8090/oauth2/jwks"
+    tokenUrl: "http://thunder-service.thunder.svc.cluster.local:8090/oauth2/token"
+    authServerBaseUrl: "http://thunder.192.168.1.3.nip.io:18080"
+
+rca:
+  openchoreoApiUrl: "http://api.192.168.1.3.nip.io:18080"
+  cors:
+    allowedOrigins:
+      - "http://openchoreo.192.168.1.3.nip.io:18080"
+  http:
+    hostnames:
+      - rca-agent.192.168.1.3.nip.io
+
+gateway:
+  httpPort: 11080
+  httpsPort: 11085
+  tls:
+    enabled: false

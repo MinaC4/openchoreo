@@ -37,6 +37,7 @@ go.work
 *.tgz
 
 .DS_Store
+.codex/
 
 *.local.md
 
