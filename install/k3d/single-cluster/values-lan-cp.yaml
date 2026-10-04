@@ -27,9 +27,12 @@ portalAssistant:
 security:
   oidc:
     issuer: "https://thunder.192.168.1.3.nip.io:18443"
-    jwksUrl: "https://thunder.192.168.1.3.nip.io:18443/oauth2/jwks"
+    # Backstage/OpenChoreo API call Thunder from inside the cluster for
+    # token exchange and JWT validation; keep the issuer and authorization
+    # endpoint public for browsers on the LAN.
+    jwksUrl: "http://thunder-service.thunder.svc.cluster.local:8090/oauth2/jwks"
     authorizationUrl: "https://thunder.192.168.1.3.nip.io:18443/oauth2/authorize"
-    tokenUrl: "https://thunder.192.168.1.3.nip.io:18443/oauth2/token"
+    tokenUrl: "http://thunder-service.thunder.svc.cluster.local:8090/oauth2/token"
 
 gateway:
   httpPort: 8080
