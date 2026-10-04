@@ -526,6 +526,23 @@ Kubernetes workloads are managed by Deployments and StatefulSets, so they are
 recreated automatically from the existing cluster data when Docker returns.
 The script does not delete or recreate the cluster.
 
+### Local user account
+
+To create or rotate a personal Thunder/OpenChoreo user while keeping the
+password out of Git, run:
+
+```bash
+OPENCHOREO_USERNAME=marshal@openchoreo.dev \
+OPENCHOREO_GIVEN_NAME=Marshal \
+OPENCHOREO_FAMILY_NAME=User \
+./install/k3d/single-cluster/provision-local-user.sh
+```
+
+The script prompts for the password, writes only a PBKDF2 credential to the
+Thunder identity database, and is safe to run again for the same entity ID.
+The account then signs in at the HTTPS portal URL and the portal reads the
+resources through the live OpenChoreo APIs backed by this cluster.
+
 ## Port Mappings
 
 All ports are mapped 1:1 (host:container) unless noted.
