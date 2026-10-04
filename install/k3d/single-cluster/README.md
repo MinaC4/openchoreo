@@ -512,6 +512,20 @@ API at `https://api.192.168.1.3.nip.io:18443`, and the sample workload through
 the corresponding `*.openchoreoapis.192.168.1.3.nip.io:19080` hostname.
 Replace `192.168.1.3` if the host receives a different DHCP address.
 
+### Restart and Resource Persistence
+
+On macOS with Docker Desktop, configure the host runtime once so the cluster
+returns after a machine or Docker restart. This keeps Docker Desktop capped at
+16 GiB and marks the k3d containers as `unless-stopped`:
+
+```bash
+./install/k3d/single-cluster/ensure-docker-runtime.sh
+```
+
+Kubernetes workloads are managed by Deployments and StatefulSets, so they are
+recreated automatically from the existing cluster data when Docker returns.
+The script does not delete or recreate the cluster.
+
 ## Port Mappings
 
 All ports are mapped 1:1 (host:container) unless noted.
