@@ -516,7 +516,7 @@ Replace `192.168.1.3` if the host receives a different DHCP address.
 
 On macOS with Docker Desktop, configure the host runtime once so the cluster
 returns after a machine or Docker restart. This keeps Docker Desktop capped at
-16 GiB and marks the k3d containers as `unless-stopped`:
+20 GiB and marks the k3d containers as `unless-stopped`:
 
 ```bash
 ./install/k3d/single-cluster/ensure-docker-runtime.sh
